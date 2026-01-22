@@ -215,17 +215,17 @@ class Timezones {
 	/**
 	 * Get timezones formatted for select/dropdown options.
 	 *
-	 * @param string $format        Format type: 'value_label' or 'key_value'.
+	 * @param bool   $as_key_value  If true, returns ['timezone' => 'label']. If false, returns [['value' => '', 'label' => '']].
 	 * @param bool   $include_empty Whether to include empty option.
 	 * @param string $empty_label   Label for empty option.
 	 *
 	 * @return array Array of options.
 	 */
-	public static function get_options( string $format = 'value_label', bool $include_empty = false, string $empty_label = '— Select —' ): array {
+	public static function get_options( bool $as_key_value = false, bool $include_empty = false, string $empty_label = '— Select —' ): array {
 		$options = [];
 
 		if ( $include_empty ) {
-			if ( $format === 'key_value' ) {
+			if ( $as_key_value ) {
 				$options[''] = $empty_label;
 			} else {
 				$options[] = [
@@ -238,7 +238,7 @@ class Timezones {
 		foreach ( timezone_identifiers_list() as $timezone ) {
 			$label = self::get_label( $timezone );
 
-			if ( $format === 'key_value' ) {
+			if ( $as_key_value ) {
 				$options[ $timezone ] = $label;
 			} else {
 				$options[] = [
@@ -249,30 +249,6 @@ class Timezones {
 		}
 
 		return $options;
-	}
-
-	/**
-	 * Get timezones in key/value format.
-	 *
-	 * @param bool   $include_empty Whether to include empty option.
-	 * @param string $empty_label   Label for empty option.
-	 *
-	 * @return array Array of timezone => label pairs.
-	 */
-	public static function get_key_value_options( bool $include_empty = false, string $empty_label = '— Select —' ): array {
-		return self::get_options( 'key_value', $include_empty, $empty_label );
-	}
-
-	/**
-	 * Get timezones in value/label format (Gutenberg/React compatible).
-	 *
-	 * @param bool   $include_empty Whether to include empty option.
-	 * @param string $empty_label   Label for empty option.
-	 *
-	 * @return array Array of options with value/label keys.
-	 */
-	public static function get_value_label_options( bool $include_empty = false, string $empty_label = '— Select —' ): array {
-		return self::get_options( 'value_label', $include_empty, $empty_label );
 	}
 
 	/**

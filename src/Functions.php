@@ -76,23 +76,6 @@ if ( ! function_exists( 'get_timezone_region' ) ) {
 	}
 }
 
-if ( ! function_exists( 'get_timezone_options' ) ) {
-	/**
-	 * Get timezones formatted for select/dropdown options.
-	 *
-	 * Returns array in format used by Gutenberg and React components:
-	 * [ ['value' => 'America/New_York', 'label' => 'America/New York'], ... ]
-	 *
-	 * @param bool   $include_empty Whether to include empty option.
-	 * @param string $empty_label   Label for empty option.
-	 *
-	 * @return array Array of options with value/label keys.
-	 */
-	function get_timezone_options( bool $include_empty = false, string $empty_label = '— Select —' ): array {
-		return Timezones::get_value_label_options( $include_empty, $empty_label );
-	}
-}
-
 if ( ! function_exists( 'get_timezone_regions' ) ) {
 	/**
 	 * Get all available timezone regions.
